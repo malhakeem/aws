@@ -1,0 +1,34 @@
+{
+  "Comment": "Parallel Example.",
+  "StartAt": "StripePipeline",
+  "States": {
+    "StripePipeline": {
+      "Type": "Parallel",
+      "End": true,
+      "Branches": [
+        {
+         "StartAt": "Save2CSV",
+         "States": {
+           "Save2CSV": {
+             "Type": "Task",
+             "Resource":
+               "arn:aws:lambda:us-east-2:244343676198:function:test",
+             "End": true
+           }
+         }
+       },
+       {
+         "StartAt": "Save2Postgres",
+         "States": {
+           "Save2Postgres": {
+             "Type": "Task",
+             "Resource":
+               "arn:aws:lambda:us-east-2:244343676198:function:save_to_postgres",
+             "End": true
+           }
+         }
+       }
+      ]
+    }
+  }
+}
